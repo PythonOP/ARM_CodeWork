@@ -1,0 +1,156 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;Reverse an array of ten 32 bit numbers in the memory.
+    2 00000000                 AREA             RESET,DATA,READONLY
+    3 00000000                 EXPORT           __Vectors
+    4 00000000         
+    5 00000000         __Vectors
+    6 00000000 10001000        DCD              0x10001000
+    7 00000004 00000000        DCD              Reset_Handler
+    8 00000008                 ALIGN
+    9 00000008                 AREA             mycode,CODE,READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000         ;Code
+   15 00000000 4811            LDR              R0,=SRC
+   16 00000002 4912            LDR              R1,=DST
+   17 00000004 F04F 020B       MOV              R2,#11
+   18 00000008 F04F 0328       MOV              R3,#40      ;Pointing to last v
+                                                            alue of SRC
+   19 0000000C         UP
+   20 0000000C 58C4            LDR              R4,[R0,R3]
+   21 0000000E F1A3 0304       SUB              R3,#4       ;Decrement SRC poin
+                                                            ter
+   22 00000012 F841 4B04       STR              R4,[R1],#4
+   23 00000016         
+   24 00000016 3A01            SUBS             R2,#1
+   25 00000018 D1F8            BNE              UP
+   26 0000001A         STOP
+   27 0000001A E7FE            B                STOP
+   28 0000001C 00000001 
+              00000002 
+              00000003 
+              00000004 
+              00000005 
+              00000006 
+              00000007 
+              00000008 
+              00000009 
+              0000000A 
+              0000000B SRC     DCD              1,2,3,4,5,6,7,8,9,10,11
+   29 00000048         
+   30 00000048 00000000 
+              00000000         AREA             mydata,DATA,READWRITE
+   31 00000000 00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 DST     DCD              0,0,0,0,0,0,0,0
+   32 00000020                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q4.d -
+o.\q4.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q4.lst Week1\q4.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file Week1\q4.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 5 in file Week1\q4.s
+   Uses
+      At line 3 in file Week1\q4.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file Week1\q4.s
+   Uses
+      At line 7 in file Week1\q4.s
+      At line 11 in file Week1\q4.s
+
+SRC 0000001C
+
+Symbol: SRC
+   Definitions
+      At line 28 in file Week1\q4.s
+   Uses
+      At line 15 in file Week1\q4.s
+Comment: SRC used once
+STOP 0000001A
+
+Symbol: STOP
+   Definitions
+      At line 26 in file Week1\q4.s
+   Uses
+      At line 27 in file Week1\q4.s
+Comment: STOP used once
+UP 0000000C
+
+Symbol: UP
+   Definitions
+      At line 19 in file Week1\q4.s
+   Uses
+      At line 25 in file Week1\q4.s
+Comment: UP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 9 in file Week1\q4.s
+   Uses
+      None
+Comment: mycode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 31 in file Week1\q4.s
+   Uses
+      At line 16 in file Week1\q4.s
+Comment: DST used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 30 in file Week1\q4.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+342 symbols in table
