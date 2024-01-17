@@ -10,30 +10,30 @@ __Vectors
 	EXPORT Reset_Handler
 		
 Reset_Handler
-	; Count the number of odd numbers from VALS
-	; If VALS 1,2,3,4,5
-	; R4 should have 3 at the end of the program
-	
-	LDR R0, =VALS       
-	MOV R2, #5          ; Set loop counter to 5
-	MOV R4, #0          ; Initialize odd counter to 0
+    MOV R4, #0          
+    LDR R1, =VALS        
+    MOV R2, #5          
 
-LOOP
-	LDR R1, [R0], #4    ; Load the next word (4 bytes) 
-	MOVS R3, R1, LSR #1 
-	BCC Inc_Odd         
+Count_Odd_Loop
+    LDR R3, [R1], #4     ; Load the next word from the VALS array into R3 and increment R1
 
-Inc_Odd	
-	ADD R4, R4, #1      ; Increment the odd counter
-	B Continue
-	
+    AND R3, R3, #1       ; Check if the number is odd by performing a bitwise AND with 1
+    CMP R3, #1           ; Compare the result with 1
+    BEQ Inc_odd
+
+    B Continue      ; If not equal, continue 
+
+Inc_Odd
+    ADD R4, R4, #1       
+
 Continue
-	SUBS R2, R2, #1     
-	BNE LOOP  
+    SUBS R2, R2, #1      
+    BNE Count_Odd_Loop   
 
-
+    ; R4 now contains the count of odd numbers in the VALS 
 
 STOP
-	B STOP
-VALS DCD 1,2,3,4,5
-	END
+    B STOP
+
+VALS DCD 1, 2, 3, 4, 5   ; Array of numbers
+END
