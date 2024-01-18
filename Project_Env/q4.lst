@@ -1,0 +1,176 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;Write a program to subtract two 128 bit numbers availab
+                       le in the code memory 
+    2 00000000         ;and store the result in the data memory.
+    3 00000000                 AREA             RESET,DATA,READONLY
+    4 00000000                 EXPORT           __Vectors
+    5 00000000         
+    6 00000000         __Vectors
+    7 00000000 10001000        DCD              0x10001000
+    8 00000004 00000000        DCD              Reset_Handler
+    9 00000008                 ALIGN
+   10 00000008                 AREA             mycode,CODE,READONLY
+   11 00000000                 ENTRY
+   12 00000000                 EXPORT           Reset_Handler
+   13 00000000         
+   14 00000000         Reset_Handler
+   15 00000000         ;Write Code here
+   16 00000000 4811            LDR              R0,=VAL1
+   17 00000002 4912            LDR              R1,=VAL2
+   18 00000004 4A12            LDR              R2,=RES
+   19 00000006         
+   20 00000006 F04F 0300       MOV              R3,#0       ;Inialize carry to 
+                                                            0
+   21 0000000A F04F 0404       MOV              R4,#4       ;LOOP reg
+   22 0000000E         
+   23 0000000E         LOOP
+   24 0000000E F850 5B04       LDR              R5,[R0],#4
+   25 00000012 F851 6B04       LDR              R6,[R1],#4
+   26 00000016         
+   27 00000016 1BAF            SUBS             R7,R5,R6    ;Subtract with borr
+                                                            ow
+   28 00000018 EB67 0703       SBC              R7,R7,R3    ;Carry update
+   29 0000001C         
+   30 0000001C F842 7B04       STR              R7,[R2],#4
+   31 00000020         
+   32 00000020         
+   33 00000020 3C01            SUBS             R4,#1
+   34 00000022 D1F4            BNE              LOOP
+   35 00000024         
+   36 00000024         STOP
+   37 00000024 E7FE            B                STOP
+   38 00000026 00 00 FFFFFFFF 
+              FFFFFFFF 
+              FFFFFFFF 
+              FFFFFFFF VAL1    DCD              0xFFFFFFFF,0xFFFFFFFF,0xFFFFFFF
+F,0xFFFFFFFF
+   39 00000038 11111111 
+              11111111 
+              11111111 
+              11111111 VAL2    DCD              0x11111111,0x11111111,0x1111111
+1,0x11111111
+   40 00000048 00000000 
+              00000000 
+              00000000         AREA             mydata,DATA,READWRITE
+   41 00000000 00000000 
+              00000000 
+              00000000 
+              00000000 RES     DCD              0,0,0,0
+   42 00000010                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q4.d -
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+o.\q4.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q4.lst ..\Week2\q4.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file ..\Week2\q4.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 6 in file ..\Week2\q4.s
+   Uses
+      At line 4 in file ..\Week2\q4.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+LOOP 0000000E
+
+Symbol: LOOP
+   Definitions
+      At line 23 in file ..\Week2\q4.s
+   Uses
+      At line 34 in file ..\Week2\q4.s
+Comment: LOOP used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 14 in file ..\Week2\q4.s
+   Uses
+      At line 8 in file ..\Week2\q4.s
+      At line 12 in file ..\Week2\q4.s
+
+STOP 00000024
+
+Symbol: STOP
+   Definitions
+      At line 36 in file ..\Week2\q4.s
+   Uses
+      At line 37 in file ..\Week2\q4.s
+Comment: STOP used once
+VAL1 00000028
+
+Symbol: VAL1
+   Definitions
+      At line 38 in file ..\Week2\q4.s
+   Uses
+      At line 16 in file ..\Week2\q4.s
+Comment: VAL1 used once
+VAL2 00000038
+
+Symbol: VAL2
+   Definitions
+      At line 39 in file ..\Week2\q4.s
+   Uses
+      At line 17 in file ..\Week2\q4.s
+Comment: VAL2 used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 10 in file ..\Week2\q4.s
+   Uses
+      None
+Comment: mycode unused
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RES 00000000
+
+Symbol: RES
+   Definitions
+      At line 41 in file ..\Week2\q4.s
+   Uses
+      At line 18 in file ..\Week2\q4.s
+Comment: RES used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 40 in file ..\Week2\q4.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+343 symbols in table

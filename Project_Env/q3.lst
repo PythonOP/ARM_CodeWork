@@ -1,0 +1,137 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000
+    6 00000004 00000000        DCD              Reset_Handler
+    7 00000008                 ALIGN
+    8 00000008                 AREA             mycode,CODE,READONLY
+    9 00000000                 ENTRY
+   10 00000000                 EXPORT           Reset_Handler
+   11 00000000         
+   12 00000000         Reset_Handler
+   13 00000000         ;Write Code here
+   14 00000000 4805            LDR              R0,=VAL1
+   15 00000002 4906            LDR              R1,=VAL2
+   16 00000004 4A06            LDR              R2,=RES
+   17 00000006 6800            LDR              R0,[R0]
+   18 00000008 6809            LDR              R1,[R1]
+   19 0000000A         
+   20 0000000A 1A43            SUBS             R3,R0,R1
+   21 0000000C 6013            STR              R3,[R2]
+   22 0000000E         STOP
+   23 0000000E E7FE            B                STOP
+   24 00000010 FFFFFFFF 
+                       VAL1    DCD              0xFFFFFFFF
+   25 00000014 11111111 
+                       VAL2    DCD              0x11111111
+   26 00000018 00000000 
+              00000000 
+              00000000         AREA             mydata,DATA,READWRITE
+   27 00000000 00000000 
+                       RES     DCD              0
+   28 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q3.d -
+o.\q3.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q3.lst ..\Week2\q3.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file ..\Week2\q3.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file ..\Week2\q3.s
+   Uses
+      At line 2 in file ..\Week2\q3.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 12 in file ..\Week2\q3.s
+   Uses
+      At line 6 in file ..\Week2\q3.s
+      At line 10 in file ..\Week2\q3.s
+
+STOP 0000000E
+
+Symbol: STOP
+   Definitions
+      At line 22 in file ..\Week2\q3.s
+   Uses
+      At line 23 in file ..\Week2\q3.s
+Comment: STOP used once
+VAL1 00000010
+
+Symbol: VAL1
+   Definitions
+      At line 24 in file ..\Week2\q3.s
+   Uses
+      At line 14 in file ..\Week2\q3.s
+Comment: VAL1 used once
+VAL2 00000014
+
+Symbol: VAL2
+   Definitions
+      At line 25 in file ..\Week2\q3.s
+   Uses
+      At line 15 in file ..\Week2\q3.s
+Comment: VAL2 used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 8 in file ..\Week2\q3.s
+   Uses
+      None
+Comment: mycode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RES 00000000
+
+Symbol: RES
+   Definitions
+      At line 27 in file ..\Week2\q3.s
+   Uses
+      At line 16 in file ..\Week2\q3.s
+Comment: RES used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 26 in file ..\Week2\q3.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+342 symbols in table

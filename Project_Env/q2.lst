@@ -1,0 +1,189 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;Write a program to add two 128 bit numbers available in
+                        code memory and 
+    2 00000000         ;store the result in data memory.
+    3 00000000         ;Hint: Use indexed addressing mode.
+    4 00000000                 AREA             RESET,DATA,READONLY
+    5 00000000                 EXPORT           __Vectors
+    6 00000000         
+    7 00000000         __Vectors
+    8 00000000 10001000        DCD              0x10001000
+    9 00000004 00000000        DCD              Reset_Handler
+   10 00000008                 ALIGN
+   11 00000008                 AREA             mycode,CODE,READONLY
+   12 00000000                 ENTRY
+   13 00000000                 EXPORT           Reset_Handler
+   14 00000000         
+   15 00000000         Reset_Handler
+   16 00000000         ;Write Code here
+   17 00000000 4814            LDR              R0,=VAL1
+   18 00000002 4915            LDR              R1,=VAL2
+   19 00000004 4A15            LDR              R2,=RESULT
+   20 00000006         
+   21 00000006 F04F 0304       MOV              R3,#4       ;Loop reg
+   22 0000000A F04F 0400       MOV              R4,#0       ;For Carry
+   23 0000000E         
+   24 0000000E         LOOP
+   25 0000000E F850 5B04       LDR              R5,[R0],#4
+   26 00000012 F851 6B04       LDR              R6,[R1],#4
+   27 00000016         
+   28 00000016         ;R7 is the final value
+   29 00000016 1967            ADDS             R7,R4,R5    ;Add val1 with carr
+                                                            y
+   30 00000018 F04F 0400       MOV              R4,#0       ;Again R4 is 0 as c
+                                                            arry
+   31 0000001C         
+   32 0000001C F144 0400       ADC              R4,#0       ;If carry generated
+                                                             from prev operatio
+                                                            n, store it in R4
+   33 00000020         
+   34 00000020 19BF            ADDS             R7,R6       ;Add val2 to R7
+   35 00000022 F144 0400       ADC              R4,#0       ;If carry generated
+                                                             after adding val2,
+                                                             store it in R4 
+   36 00000026         
+   37 00000026 F842 7B04       STR              R7,[R2],#4  ;Store each 32 bit 
+                                                            section to location
+                                                             RESULT
+   38 0000002A         
+   39 0000002A 3B01            SUBS             R3,#1
+   40 0000002C D1EF            BNE              LOOP
+   41 0000002E         
+   42 0000002E 6014            STR              R4,[R2]     ;Final Carry stored
+                                                             to location RESULT
+                                                            
+   43 00000030         STOP
+   44 00000030 E7FE            B                STOP
+   45 00000032 00 00 01234567 
+              89ABCDEF 
+              01234567 
+              89ABCDEF VAL1    DCD              0x01234567, 0x89abcdef, 0x01234
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+567, 0x89abcdef
+   46 00000044 FEDCBA98 
+              76543210 
+              FEDCBA98 
+              76543210 VAL2    DCD              0xfedcba98, 0x76543210, 0xfedcb
+a98, 0x76543210
+   47 00000054 00000000 
+              00000000 
+              00000000         AREA             mydata,DATA,READWRITE
+   48 00000000 00000000 
+                       RESULT  DCD              0
+   49 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q2.d -
+o.\q2.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q2.lst ..\Week2\q2.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 4 in file ..\Week2\q2.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 7 in file ..\Week2\q2.s
+   Uses
+      At line 5 in file ..\Week2\q2.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+LOOP 0000000E
+
+Symbol: LOOP
+   Definitions
+      At line 24 in file ..\Week2\q2.s
+   Uses
+      At line 40 in file ..\Week2\q2.s
+Comment: LOOP used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 15 in file ..\Week2\q2.s
+   Uses
+      At line 9 in file ..\Week2\q2.s
+      At line 13 in file ..\Week2\q2.s
+
+STOP 00000030
+
+Symbol: STOP
+   Definitions
+      At line 43 in file ..\Week2\q2.s
+   Uses
+      At line 44 in file ..\Week2\q2.s
+Comment: STOP used once
+VAL1 00000034
+
+Symbol: VAL1
+   Definitions
+      At line 45 in file ..\Week2\q2.s
+   Uses
+      At line 17 in file ..\Week2\q2.s
+Comment: VAL1 used once
+VAL2 00000044
+
+Symbol: VAL2
+   Definitions
+      At line 46 in file ..\Week2\q2.s
+   Uses
+      At line 18 in file ..\Week2\q2.s
+Comment: VAL2 used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 11 in file ..\Week2\q2.s
+   Uses
+      None
+Comment: mycode unused
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESULT 00000000
+
+Symbol: RESULT
+   Definitions
+      At line 48 in file ..\Week2\q2.s
+   Uses
+      At line 19 in file ..\Week2\q2.s
+Comment: RESULT used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 47 in file ..\Week2\q2.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+343 symbols in table
